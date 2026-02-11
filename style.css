@@ -1,0 +1,308 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Main Content */
+main {
+  margin-left: 210px;
+}
+
+/* Header */
+header {
+  background-color: #FF0000; 
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 210px;
+  right: 0;
+  z-index: 50;
+}
+
+header p {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Navigation Buttons inside header nav */
+header nav {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 210px;
+  height: 100vh;
+  z-index: 60;
+}
+
+header nav button {
+  background-color: #0000FF; 
+  color: white; 
+  border: none;
+  padding: 20px 30px;
+  font-size: 18px;
+  cursor: pointer;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+  transition: background-color 0.2s;
+  text-align: center;
+  position: relative;
+  z-index: 70;
+  flex-shrink: 0;
+}
+
+header nav button:first-child {
+  border-top: none;
+}
+
+header nav button:hover {
+  background-color: #0000CC;
+}
+
+/* Jump Menu Dropdown */
+body > nav#jumpMenu {
+  width: 210px;
+  background-color: #DAA520; 
+  padding: 0;
+  border-right: 3px solid #000; 
+  border-top: 3px solid #000;
+  position: fixed;
+  left: 0;
+  top: 58px; /* Position below Recent Articles button */
+  max-height: 0;
+  overflow: hidden;
+  z-index: 65;
+  transition: max-height 0.4s ease-in-out;
+}
+
+/* Show jump menu when hovering over Recent Articles button or jump menu itself */
+header nav button:first-child:hover + body > nav#jumpMenu,
+body:has(header nav button:first-child:hover) > nav#jumpMenu,
+body > nav#jumpMenu:hover {
+  max-height: 600px;
+  padding: 20px;
+  padding-top: 10px;
+}
+
+#jumpMenu h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#jumpMenu a {
+  display: block;
+  text-align: center;
+  padding: 8px 0;
+  margin: 10px 0;
+  color: blue;
+  text-decoration: underline;
+  font-size: 18px;
+  background-color: transparent;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+#jumpMenu a:hover {
+  background-color: #0000FF;
+  color: white;
+}
+
+#jumpMenu br {
+  display: none;
+}
+
+/* Push other buttons down when jump menu is visible */
+header nav button:nth-child(2) {
+  margin-top: 0;
+  transition: margin-top 0.4s ease-in-out;
+}
+
+body:has(header nav button:first-child:hover) header nav button:nth-child(2),
+body:has(#jumpMenu:hover) header nav button:nth-child(2) {
+  margin-top: 600px;
+}
+
+header nav button:nth-child(3) {
+  border-top: 3px solid #000;
+}
+
+header nav button:last-child {
+  border-bottom: 3px solid #000;
+}
+
+/* Black space below navigation buttons */
+header nav::after {
+  content: '';
+  background-color: #000;
+  flex-grow: 1;
+}
+
+/* Heading */
+h1 {
+  text-align: center;
+  font-size: 48px;
+  margin: 40px 0;
+  margin-top: 120px; 
+}
+
+/* Article Container */
+#container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 20px;
+  padding-bottom: 200px; 
+}
+
+/* Articles */
+article {
+  padding: 15px;
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+article:hover {
+  background-color: #FFFF00;
+}
+
+article h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #999;
+  transition: color 0.2s;
+}
+
+article:hover h2 {
+  color: #000;
+}
+
+article p {
+  text-align: justify;
+  line-height: 1.6;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #999;
+  transition: color 0.2s;
+}
+
+article:hover p {
+  color: #000;
+}
+
+/* First letter styling for article paragraphs - only paragraphs without links */
+article p:not(:has(a))::first-letter {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 36px;
+  float: left;
+  line-height: 1;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+
+/* Paragraph containing Read More link */
+article p:has(a) {
+  text-align: right;
+}
+
+article a {
+  color: blue;
+  text-decoration: underline;
+  display: inline-block;
+  text-align: right;
+}
+
+/* Arrow icon for all Read More links */
+article p a::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url(arrow.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+/* Thank You Block */
+#thanks {
+  background-color: #87CEEB;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 20px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 280px;
+  z-index: 50;
+  border-radius: 8px;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  padding-right: 320px;
+}
+
+footer p {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+address {
+  font-style: normal;
+}
+
+address div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+address span {
+  margin: 5px;
+}
+
+address a {
+  color: #87CEEB;
+  text-decoration: none;
+}
+
+/* Responsive Grid */
+@media (min-width: 1600px) {
+  #container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+  #container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 800px) and (max-width: 1199px) {
+  #container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
